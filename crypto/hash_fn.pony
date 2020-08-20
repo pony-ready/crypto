@@ -12,12 +12,10 @@ primitive Hash
       recover String.from_cpointer(
         @pony_alloc[Pointer[U8]](@pony_ctx[Pointer[None] iso](), digest_size), digest_size)
       end
-      
     @EVP_DigestInit_ex[None](ctx, digest_func, USize(0))
     @EVP_DigestUpdate[None](ctx, input.cpointer(), input.size())
     @EVP_DigestFinal_ex[None](ctx, digest.cpointer(), Pointer[USize])
     @EVP_MD_CTX_free[None](ctx)
-
     (consume digest).array()
 
 class Digest
